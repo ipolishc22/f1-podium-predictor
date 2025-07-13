@@ -1,6 +1,8 @@
 import fastf1
 import pandas as pd
 
+
+# extracts the nexessary data from the session and returns it as a pandas dataframe 
 def extract_session_data(year: int, grand_prix_name: str, session_name: str, merge_weather=True) -> pd.DataFrame:
 
     session = fastf1.get_session(year, grand_prix_name, session_name)
@@ -32,6 +34,7 @@ def extract_session_data(year: int, grand_prix_name: str, session_name: str, mer
 
 
 
+# cleans the session data by removing inaccurate lines and NA values
 def clean_session_data(laps: pd.DataFrame):
 
     clean = laps.copy()
@@ -46,15 +49,13 @@ def clean_session_data(laps: pd.DataFrame):
     return clean.reset_index(drop=True)
 
 
-
+# returns the data fro a specific driver based on the driver code 
 def get_driver_laps(df, driver_code):
     return df[df['Driver'] == driver_code].reset_index(drop=True)
 
 
-def clean_fp2_data(fp2_df: pd.DataFrame) -> pd.DataFrame:
-    return clean_session_data(fp2_df)
-
-
+# computes the FP2 features that are not present in the dataset initially
+# like average lap time in FP2, best lap time in FP2, and total laps done in FP2
 def extract_fp2_features(df):
 
     fp2_features = df.groupby("Driver").agg({
@@ -67,55 +68,36 @@ def extract_fp2_features(df):
     return fp2_features
 
 
+
+# extract necessary Quali features, like fastest lap in qualifying, and 
+# qualifying position
 def extract_quali_features(df_quali):
-    # Remove laps with NaN times
     df_quali = df_quali[df_quali['LapTime_s'].notna()]
     
-    # Group by driver and take min lap time (fastest)
     fastest_laps = df_quali.groupby('Driver')['LapTime_s'].min().reset_index()
     fastest_laps.rename(columns={'LapTime_s': 'FastestQualiLap'}, inplace=True)
     
-    # Optional: Assign grid positions by rank
     fastest_laps['QualiPosition'] = fastest_laps['FastestQualiLap'].rank(method='min').astype(int)
 
     return fastest_laps
 
 
-def assemble_race_dataset(df_fp2, df_quali, df_results):
-    df_fp2_clean = clean_fp2_data(df_fp2)
-    fp2_features = extract_fp2_features(df_fp2_clean)
-    quali_features = extract_quali_features(df_quali)
-    
-    merged = fp2_features.merge(quali_features, on="Driver", how="inner")
-    final = merged.merge(df_results, on="Driver", how="inner")
-    
-    return final
+
+# combines the fp2 features, quali features, and the final result dictionary 
+# to create the dataframe with all the necessary data for modeling
+def assemble_race_dataset(fp2_features, quali_features, race_results_dict):
+    combined_df = fp2_features.merge(quali_features, on="Driver", how="inner")
+
+    results_df = pd.DataFrame.from_dict(race_results_dict, orient='index').reset_index()
+    results_df.columns = ['Driver', 'RacePosition', 'DNF']
+
+    final_df = combined_df.merge(results_df, on="Driver", how="inner")
+
+    return final_df
 
 
 
-'''
-def load_all_races(race_paths):
-    race_dfs = []
-    for fp2_path, quali_path, result_df in race_paths:
-        df_fp2 = pd.read_csv(fp2_path)
-        df_quali = pd.read_csv(quali_path)
-        df_result = result_df  # might be passed from EDA manually
-        race_df = assemble_race_dataset(df_fp2, df_quali, df_result)
-        race_dfs.append(race_df)
-    return pd.concat(race_dfs, ignore_index=True)
-'''
-
-
-def build_feature_row():
-    return 
-
-def append_to_master_dataset():
-    return
-
-
-def load_official_results():
-    return 
-
-
-def process_race(fp2_df, q_df, race_name, position_dict=None):
+# combines the race dataframe to the master dataframe 
+# which contains all the previously extracted data
+def append_to_master_dataset(master_df, race_df):
     return
