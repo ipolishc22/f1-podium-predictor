@@ -97,7 +97,54 @@ def assemble_race_dataset(fp2_features, quali_features, race_results_dict):
 
 
 
+
+# might try and make a function which will request race results from 
+# the API for which it is available 
+def extract_race_results():
+
+
+
+
+
+    return 
+
+
+
 # combines the race dataframe to the master dataframe 
 # which contains all the previously extracted data
 def append_to_master_dataset(master_df, race_df):
     return
+
+
+
+# helps create a first draft of the finishing position dictionary
+def get_manual_finish_dict(year: int, grand_prix: str) -> dict:
+    """
+    Returns a dictionary mapping driver codes to [position, DNF]
+    for the given race session. DSQ and DNF both marked as DNF=True.
+    """
+
+    session = fastf1.get_session(year, grand_prix, 'R')
+    session.load()
+
+    laps = session.laps
+    last_valid_laps = laps[laps['Position'].notna()].sort_values('LapNumber')
+    final_laps = last_valid_laps.groupby('Driver').tail(1).copy()
+
+    total_laps = final_laps['LapNumber'].max()
+    final_laps = final_laps.sort_values('Position').reset_index(drop=True)
+    final_laps['Rank'] = final_laps.index + 1
+    final_laps['DNF'] = final_laps['LapNumber'] < total_laps
+
+    result_dict = {
+        driver: [int(row['Rank']), bool(row['DNF'])]
+        for driver, row in final_laps.set_index('Driver')[['Rank', 'DNF']].iterrows()
+    }
+
+    all_drivers = set(session.results['Abbreviation']) if session.results is not None else set(laps['Driver'].unique())
+    missing_drivers = all_drivers - set(result_dict.keys())
+
+    for drv in missing_drivers:
+        result_dict[drv] = [21, True]
+
+    return result_dict
