@@ -33,7 +33,7 @@ _Repo: [ipolishc22/f1-strategy-simulator](https://github.com/ipolishc22/f1-strat
 
 ## 🏁 Overview
 
-This project trains multiple classification models using 2025 Formula 1 race data. It takes cleaned and feature-engineered data from FP3 and Qualifying sessions and compares the performance of different machine learning models in predicting podium outcomes. The long-term goal is to simulate user-defined race scenarios and strategic decisions.
+This project trains multiple classification models using 2025 Formula 1 race data. It takes cleaned and feature-engineered data from FP2 and Qualifying sessions and compares the performance of different machine learning models in predicting podium outcomes. The long-term goal is to simulate user-defined race scenarios and strategic decisions.
 
 ---
 
@@ -91,13 +91,25 @@ Results will be added soon. Metrics such as model accuracy, confusion matrix, an
 ## 📁 Project Structure
 
 ```
-.
-├── data/                    # Cleaned and master datasets
-├── notebooks/               # Data collection and modeling notebooks
-├── utils/                   # (internal tools and pipeline logic)
-├── pipeline.py              # Main data processing script
-├── requirements.txt         # Python dependencies
-└── README.md
+f1-strategy-simulator/
+├── data/
+│   └── master_f1_dataset_2025.csv       # Master dataset used for training and prediction
+│
+├── models/
+│   └── podium_predictor_logistic_regression.pkl  # Trained logistic regression model (serialized)
+│
+├── notebooks/
+│   ├── data_collection.ipynb            # Collects and preprocesses race weekend data
+│   ├── modeling.ipynb                   # Feature engineering and model training
+│   └── next_race_predict.ipynb          # Loads trained model and generates podium predictions
+│
+├── utils/
+│   └── pipeline.py                      # Python module for data fetching, cleaning, and dataset creation
+│
+├── .gitignore                           # Specifies untracked files (e.g., __pycache__, .DS_Store)
+├── requirements.txt                     # Project dependencies
+├── LICENSE                              # License information
+└── README.md                            # Project documentation (you're reading it!)
 ```
 
 ---
@@ -143,11 +155,11 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 
 ## 📬 Contact
 
-**Will Franko**
+**Illia Polishchuk**
 
 - GitHub: [@ipolishc22](https://github.com/ipolishc22)
-- LinkedIn: [Your LinkedIn URL here]
-- Email: [Your email, optional]
+- LinkedIn: [www.linkedin.com/in/illia-polishchuk-4065802a0]
+- Email: [illia.polishchuk@gmail.com]
 
 ---
 
