@@ -178,8 +178,8 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 **Illia Polishchuk**
 
 - GitHub: [@ipolishc22](https://github.com/ipolishc22)
-- LinkedIn: [www.linkedin.com/in/illia-polishchuk-4065802a0]
-- Email: [illia.polishchuk@gmail.com]
+- LinkedIn: www.linkedin.com/in/illia-polishchuk-4065802a0
+- Email: illia.polishchuk@gmail.com
 
 ---
 
