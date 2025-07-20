@@ -83,7 +83,6 @@ To set up this project locally:
 
 ---
 
-````markdown
 ## 🚀 How to Use
 
 1. **`notebooks/data_collection.ipynb`**
@@ -105,7 +104,7 @@ To set up this project locally:
 
 ## 📊 Results
 
-Results will be added soon. Metrics such as model accuracy, confusion matrix, and prediction examples will appear here.
+Current best-performing model: Logistic Regression — further metrics coming soon.
 
 ---
 
@@ -192,4 +191,7 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 - [ ] Incorporate pit stop strategy and weather simulation
 
 ---
-````
+
+```
+
+```
