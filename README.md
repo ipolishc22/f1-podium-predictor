@@ -51,34 +51,55 @@ This project trains multiple classification models using 2025 Formula 1 race dat
 
 ---
 
-## 🛠 Installation
+## 🛠 Getting Started
 
-```bash
-git clone https://github.com/ipolishc22/f1-strategy-simulator.git
-cd f1-strategy-simulator
-pip install -r requirements.txt
-```
+To set up this project locally:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/ipolishc22/f1-strategy-simulator.git
+   cd f1-strategy-simulator
+   ```
+
+2. (Optional) Create and activate a virtual environment:
+
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate    # macOS/Linux
+   .\venv\Scripts\activate     # Windows
+   ```
+
+3. Install the required dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Launch Jupyter Notebook:
+   ```bash
+   jupyter notebook
+   ```
 
 ---
 
-## ⚙️ Usage
+````markdown
+## 🚀 How to Use
 
-1. Run the data pipeline:
+1. **`notebooks/data_collection.ipynb`**
 
-   ```bash
-   python pipeline.py
-   ```
+   - Collects FP2 and Qualifying data using FastF1
+   - Performs feature engineering
+   - Cleans and combines race session data into a master dataset (`data/master_f1_dataset_2025.csv`)
 
-2. Explore modeling and results in Jupyter:
+2. **`notebooks/modeling.ipynb`**
 
-   ```bash
-   jupyter notebook notebooks/modeling.ipynb
-   ```
+   - Trains and evaluates models (Logistic Regression, Random Forest, etc.)
+   - Saves the best-performing model to the `models/` directory
 
-3. (Coming Soon) Use a saved model with a script:
-   ```bash
-   python predict_race.py --race "Spa 2025"
-   ```
+3. **`notebooks/next_race_predict.ipynb`**
+   - Loads the saved model and applies it to updated session data
+   - Generates podium predictions for upcoming races (e.g., Belgian GP)
 
 ---
 
@@ -171,3 +192,4 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 - [ ] Incorporate pit stop strategy and weather simulation
 
 ---
+````
