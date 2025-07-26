@@ -42,10 +42,10 @@ This project trains multiple classification models using 2025 Formula 1 race dat
 - Automated data collection with **FastF1 API**
 - Feature engineering and session data cleaning
 - Trains and compares multiple models:
-  - Logistic Regression
   - Random Forest
   - Gradient Boosting Classifier
-  - (Fourth model TBD)
+  - Logistic Regression
+  - Logistic Regression (Without Qualifying Position)
 - Will export best-performing model for race prediction
 - Future: integration with dashboard + strategy simulation engine
 
