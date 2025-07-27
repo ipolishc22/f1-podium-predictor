@@ -96,6 +96,13 @@ def assemble_race_dataset(fp2_features, quali_features, race_results_dict):
     return final_df
 
 
+# same as previoud just excludes the manula results dict used for training
+def assemble_race_dataset(fp2_features, quali_features):
+    # Merge FP2 and Quali data on Driver
+    combined_df = fp2_features.merge(quali_features, on="Driver", how="inner")
+    
+    # Return combined features for prediction (no race results)
+    return combined_df
 
 
 # might try and make a function which will request race results from 
