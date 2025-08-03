@@ -97,7 +97,7 @@ def assemble_race_dataset(fp2_features, quali_features, race_results_dict):
 
 
 # same as previoud just excludes the manula results dict used for training
-def assemble_race_dataset(fp2_features, quali_features):
+def assemble_race_dataset_pre_race(fp2_features, quali_features):
     # Merge FP2 and Quali data on Driver
     combined_df = fp2_features.merge(quali_features, on="Driver", how="inner")
     
