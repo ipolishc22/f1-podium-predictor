@@ -4,7 +4,7 @@ _Repo: [ipolishc22/f1-strategy-simulator](https://github.com/ipolishc22/f1-strat
 
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)]()
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-green.svg)]()
-[![Model Accuracy](https://img.shields.io/badge/accuracy-TBD-yellow.svg)]()
+[![Model Accuracy](https://img.shields.io/badge/accuracy-0.78-yellow.svg)]()
 
 ---
 
