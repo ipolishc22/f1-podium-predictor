@@ -12,8 +12,7 @@ _Repo: [ipolishc22/f1-strategy-simulator](https://github.com/ipolishc22/f1-strat
 
 - [Overview](#overview)
 - [Key Features](#key-features)
-- [Installation](#installation)
-- [Usage](#usage)
+- [How It Works](#how-it-works)
 - [Results](#results)
 - [Project Structure](#project-structure)
 - [Tech Stack](#tech-stack)
@@ -47,54 +46,26 @@ This is the first step toward a larger race strategy simulation platform.
 
 ---
 
-## 🛠 Getting Started
+## 🛠 How It Works
 
-To set up this project locally:
+The project is organized into Jupyter notebooks and utility scripts that cover the full workflow:
 
-1. Clone the repository:
+1. **Data Collection** – `notebooks/data_collection.ipynb`
 
-   ```bash
-   git clone https://github.com/ipolishc22/f1-strategy-simulator.git
-   cd f1-strategy-simulator
-   ```
+   - Uses the **FastF1 API** to fetch Free Practice 2 and Qualifying data.
+   - Performs feature engineering and compiles everything into a master dataset (`data/master_f1_dataset_2025.csv`).
 
-2. (Optional) Create and activate a virtual environment:
+2. **Modeling** – `notebooks/modeling.ipynb`
 
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate    # macOS/Linux
-   .\venv\Scripts\activate     # Windows
-   ```
+   - Trains and compares multiple machine learning models (Random Forest, Gradient Boosting, Logistic Regression).
+   - Evaluates performance using classification reports and confusion matrices.
+   - Saves the best-performing model into the `models/` directory.
 
-3. Install the required dependencies:
+3. **Prediction** – `notebooks/next_race_predict.ipynb`
+   - Loads the saved Logistic Regression model.
+   - Applies it to the latest session data to generate podium predictions for upcoming races (e.g., Belgian GP).
 
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. Launch Jupyter Notebook:
-   ```bash
-   jupyter notebook
-   ```
-
----
-
-## 🚀 How to Use
-
-1. **`notebooks/data_collection.ipynb`**
-
-   - Collects FP2 and Qualifying data using FastF1
-   - Performs feature engineering
-   - Cleans and combines race session data into a master dataset (`data/master_f1_dataset_2025.csv`)
-
-2. **`notebooks/modeling.ipynb`**
-
-   - Trains and evaluates models (Logistic Regression, Random Forest, etc.)
-   - Saves the best-performing model to the `models/` directory
-
-3. **`notebooks/next_race_predict.ipynb`**
-   - Loads the saved model and applies it to updated session data
-   - Generates podium predictions for upcoming races (e.g., Belgian GP)
+> ⚠️ Note: This is an early version of the project meant as a **portfolio showcase**. While the notebooks are runnable with the included `requirements.txt`, the code is still under development and may require additional setup (e.g., FastF1 API configuration and race data updates).
 
 ---
 
