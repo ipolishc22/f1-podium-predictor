@@ -2,15 +2,9 @@
 
 _Repo: [ipolishc22/f1-strategy-simulator](https://github.com/ipolishc22/f1-strategy-simulator)_
 
-[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)]()
+[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-green.svg)]()
 [![Model Accuracy](https://img.shields.io/badge/accuracy-0.78-yellow.svg)]()
-
----
-
-## 🚀 Project Description
-
-**F1 Podium Predictor** is a machine learning pipeline that forecasts the top 3 finishers of a Formula 1 race using race weekend data (Free Practice, Qualifying). It is designed as the first module in a broader F1 race strategy simulation platform.
 
 ---
 
@@ -33,7 +27,9 @@ _Repo: [ipolishc22/f1-strategy-simulator](https://github.com/ipolishc22/f1-strat
 
 ## 🏁 Overview
 
-This project trains multiple classification models using 2025 Formula 1 race data. It takes cleaned and feature-engineered data from FP2 and Qualifying sessions and compares the performance of different machine learning models in predicting podium outcomes. The long-term goal is to simulate user-defined race scenarios and strategic decisions.
+F1 Podium Predictor is a machine learning pipeline that forecasts the top 3 finishers of a Formula 1 race using race weekend data (FP2, Qualifying).  
+It trains multiple classification models, compares their performance, and currently achieves a top-3 prediction accuracy of ~78%.  
+This is the first step toward a larger race strategy simulation platform.
 
 ---
 
@@ -104,7 +100,14 @@ To set up this project locally:
 
 ## 📊 Results
 
-Current best-performing model: Logistic Regression — further metrics coming soon.
+| Model                          | Precision (Podium) | Recall (Podium) | F1-Score | Accuracy |
+| ------------------------------ | ------------------ | --------------- | -------- | -------- |
+| Random Forest                  | 1.00               | 0.43            | 0.60     | 0.91     |
+| Gradient Boosting              | 1.00               | 0.43            | 0.60     | 0.91     |
+| Logistic Regression (Quali)    | 0.54               | 1.00            | 0.70     | 0.87     |
+| Logistic Regression (No Quali) | 0.22               | 0.71            | 0.33     | 0.57     |
+
+Best performing model: Logistic Regression (with Qualifying Position) → 78% podium accuracy across the 2025 season.
 
 ---
 
@@ -177,15 +180,15 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 
 **Illia Polishchuk**
 
-- GitHub: [@ipolishc22](https://github.com/ipolishc22)
-- LinkedIn: www.linkedin.com/in/illia-polishchuk-4065802a0
-- Email: illia.polishchuk@gmail.com
+- [LinkedIn](https://www.linkedin.com/in/illia-polishchuk-4065802a0)
+- [GitHub](https://github.com/ipolishc22)
+- Email: illia.polishchuk22@gmail.com
 
 ---
 
 ## 🛣️ Future Roadmap
 
-- [ ] Expand dataset to include 2021–2024 seasons
+- [ ] Expand dataset to include 2022–2024 seasons
 - [ ] Add Monte Carlo simulation of race outcomes
 - [ ] Develop interactive dashboard for race scenario input
 - [ ] Incorporate pit stop strategy and weather simulation
