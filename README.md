@@ -26,8 +26,7 @@ _Repo: [ipolishc22/f1-podium-predictor](https://github.com/ipolishc22/f1-podium-
 ## 🏁 Overview
 
 F1 Podium Predictor is a machine learning pipeline that forecasts the top 3 finishers of a Formula 1 race using race weekend data (FP2, Qualifying).  
-It trains multiple classification models, compares their performance, and currently achieves a top-3 prediction accuracy of ~78%.  
-This is the first step toward a larger race strategy simulation platform.
+It trains multiple classification models, compares their performance, and currently achieves a top-3 prediction accuracy of ~78%.
 
 ---
 
@@ -98,7 +97,9 @@ The project is organized into Jupyter notebooks and utility scripts that cover t
   - Sorting and formatting output
 - Promotes modular, reusable code and consistent results.
 
-> ⚠️ Note: This is an early version of the project meant as a **portfolio showcase**. While the notebooks are runnable with the included `requirements.txt`, the code is still under development and may require additional setup (e.g., FastF1 API configuration and race data updates).
+---
+
+> ⚠️ **Note:** This project is continuously evolving. Race predictions and code updates are added after each Grand Prix weekend.
 
 ---
 
