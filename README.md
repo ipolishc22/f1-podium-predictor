@@ -1,10 +1,9 @@
 # 🏎️ F1 Podium Predictor
 
-_Repo: [ipolishc22/f1-strategy-simulator](https://github.com/ipolishc22/f1-strategy-simulator)_
+_Repo: [ipolishc22/f1-podium-predictor](https://github.com/ipolishc22/f1-podium-predictor)_
 
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-green.svg)]()
-[![Model Accuracy](https://img.shields.io/badge/accuracy-0.78-yellow.svg)]()
 
 ---
 
@@ -48,22 +47,56 @@ This is the first step toward a larger race strategy simulation platform.
 
 ## 🛠 How It Works
 
-The project is organized into Jupyter notebooks and utility scripts that cover the full workflow:
+The project is organized into Jupyter notebooks and utility scripts that cover the full workflow — from data collection and model training to real-time race prediction and continuous model updates.
 
-1. **Data Collection** – `notebooks/data_collection.ipynb`
+---
 
-   - Uses the **FastF1 API** to fetch Free Practice 2 and Qualifying data.
-   - Performs feature engineering and compiles everything into a master dataset (`data/master_f1_dataset_2025.csv`).
+### 1. **Data Collection** – `notebooks/data_collection.ipynb`
 
-2. **Modeling** – `notebooks/modeling.ipynb`
+- Uses the **FastF1 API** to fetch Free Practice 2 and Qualifying session data.
+- Performs feature engineering and compiles data into a structured format.
+- Saves the output to `data/master_dataset_2025.csv`.
 
-   - Trains and compares multiple machine learning models (Random Forest, Gradient Boosting, Logistic Regression).
-   - Evaluates performance using classification reports and confusion matrices.
-   - Saves the best-performing model into the `models/` directory.
+---
 
-3. **Prediction** – `notebooks/next_race_predict.ipynb`
-   - Loads the saved Logistic Regression model.
-   - Applies it to the latest session data to generate podium predictions for upcoming races (e.g., Belgian GP).
+### 2. **Modeling** – `notebooks/modeling.ipynb`
+
+- Trains and compares multiple classification models:
+  - Random Forest
+  - Gradient Boosting
+  - Logistic Regression (with and without Qualifying Position)
+- Evaluates model performance using classification reports and F1 scores.
+
+---
+
+### 3. **Race Predictions**
+
+- `notebooks/predict_r13_r14_belgian_hungarian.ipynb`
+- `notebooks/predict_r15_dutch.ipynb`
+
+- Each prediction notebook uses session data available **before** the race.
+- Loads the appropriate model and scaler (e.g., `logreg_scaled_quali_pre_r15_netherlands.pkl`).
+- Applies the model to the pre-race data to predict each driver's probability of finishing on the podium.
+- Outputs a sorted table with podium probabilities and highlights the predicted Top 3 finishers.
+
+---
+
+### 4. **Model Updating** – `notebooks/update_model_for_race.ipynb`
+
+- After a Grand Prix is completed, this notebook:
+  - Adds the official race results to the training dataset.
+  - Retrains the model on the updated dataset (optionally).
+  - Outputs a new `.pkl` model and scaler for use in the next prediction.
+
+---
+
+### 5. **Reusable Pipeline Functions** – `utils/pipeline.py`
+
+- Centralizes helper functions used across all notebooks:
+  - Scaling and preprocessing
+  - Probability prediction
+  - Sorting and formatting output
+- Promotes modular, reusable code and consistent results.
 
 > ⚠️ Note: This is an early version of the project meant as a **portfolio showcase**. While the notebooks are runnable with the included `requirements.txt`, the code is still under development and may require additional setup (e.g., FastF1 API configuration and race data updates).
 
@@ -85,25 +118,34 @@ Best performing model: Logistic Regression (with Qualifying Position) → 78% po
 ## 📁 Project Structure
 
 ```
-f1-strategy-simulator/
 ├── data/
-│   └── master_f1_dataset_2025.csv       # Master dataset used for training and prediction
+│   ├── master_dataset_2025.csv                    # Full dataset used for training
+│   ├── r13_belgium_2025.csv                       # Race-specific input data for predictions (Round 13)
+│   ├── r14_hungary_2025.csv                       # Race-specific input data for predictions (Round 14)
+│   ├── r15_netherlands_2025.csv                   # Race-specific input data for predictions (Round 15)
 │
 ├── models/
-│   └── podium_predictor_logistic_regression.pkl  # Trained logistic regression model (serialized)
+│   ├── logreg_scaled_quali_pre_r13_belgium.pkl    # Logistic Regression model before Belgium GP
+│   ├── logreg_scaled_quali_pre_r14_hungary.pkl    # Logistic Regression model before Hungary GP
+│   ├── logreg_scaled_quali_pre_r15_netherlands.pkl# Logistic Regression model before Netherlands GP
+│   ├── scaler.pkl                                 # Original scaler used for predicting Belgian and Hungarian GPs
+│   ├── scaler_pre_r15_netherlands.pkl             # Scaler used for Netherlands GP
 │
 ├── notebooks/
-│   ├── data_collection.ipynb            # Collects and preprocesses race weekend data
-│   ├── modeling.ipynb                   # Feature engineering and model training
-│   └── next_race_predict.ipynb          # Loads trained model and generates podium predictions
+│   ├── data_collection.ipynb                      # Data loading and preprocessing notebook
+│   ├── modeling.ipynb                             # Model training, evaluation, and saving
+│   ├── predict_r13_r14_belgian_hungarian.ipynb    # Prediction notebook for Belgium & Hungary
+│   ├── predict_r15_dutch.ipynb                    # Prediction notebook for Netherlands GP
+│   ├── update_model_for_race.ipynb                # Retrains model with new race data
 │
 ├── utils/
-│   └── pipeline.py                      # Python module for data fetching, cleaning, and dataset creation
+│   ├── pipeline.py                                # File containing all the custom helper functions
 │
-├── .gitignore                           # Specifies untracked files (e.g., __pycache__, .DS_Store)
-├── requirements.txt                     # Project dependencies
-├── LICENSE                              # License information
-└── README.md                            # Project documentation (you're reading it!)
+├── requirements.txt                               # Python dependencies
+├── .gitignore                                     # Git ignore rules
+├── LICENSE                                        # Project license
+├── README.md                                      # Project overview and instructions
+
 ```
 
 ---
@@ -160,7 +202,7 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 ## 🛣️ Future Roadmap
 
 - [ ] Expand dataset to include 2022–2024 seasons
-- [ ] Add Monte Carlo simulation of race outcomes
+- [ ] Explore scenario simulation for race strategies (e.g., different tire compounds, safety cars)
 - [ ] Develop interactive dashboard for race scenario input
 - [ ] Incorporate pit stop strategy and weather simulation
 
