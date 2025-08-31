@@ -7,6 +7,13 @@ _Repo: [ipolishc22/f1-podium-predictor](https://github.com/ipolishc22/f1-podium-
 
 ---
 
+## 📖 Medium Article
+
+Read the full write-up on Medium:  
+[Predicting F1 Podiums with 78% Accuracy Using Machine Learning and Real Race Data](https://medium.com/@ipolishchuk22/predicting-f1-podiums-with-78-accuracy-using-machine-learning-and-real-race-data-0de3bcd6d2c4)
+
+---
+
 ## 📋 Table of Contents
 
 - [Overview](#overview)
